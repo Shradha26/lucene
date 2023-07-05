@@ -19,12 +19,10 @@ package org.apache.lucene.aggregation;
 /** Accumulates. */
 public abstract class Accumulator {
   double runningValue;
-  String unit;
   String fieldName;
 
-  Accumulator(double seed, String unit, String fieldName) {
+  Accumulator(double seed, String fieldName) {
     runningValue = seed;
-    this.unit = unit;
     this.fieldName = fieldName;
   }
 
@@ -35,14 +33,6 @@ public abstract class Accumulator {
    */
   public abstract void evaluate(double value);
 
-  /**
-   * TK
-   *
-   * @return double
-   */
-  public String getUnit() {
-    return unit;
-  }
 
   /**
    * TK

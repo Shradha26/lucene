@@ -23,6 +23,7 @@ description = 'Aggregation engine for Lucene'
 dependencies {
     moduleApi project(':lucene:core')
     implementation project(':lucene:expressions')
+    implementation project(':lucene:facet')
     moduleImplementation 'com.carrotsearch:hppc'
 
     moduleTestImplementation project(':lucene:test-framework')

@@ -19,8 +19,8 @@ package org.apache.lucene.aggregation;
 /** Accumulates with count. */
 class CountAccumulator extends Accumulator {
 
-  CountAccumulator(double seed, String unit, String fieldName) {
-    super(seed, unit, fieldName);
+  CountAccumulator(double seed, String fieldName) {
+    super(seed, fieldName);
   }
 
   @Override

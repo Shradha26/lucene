@@ -19,8 +19,8 @@ package org.apache.lucene.aggregation;
 /** Accumulates with sum. */
 class SumAccumulator extends Accumulator {
 
-  SumAccumulator(double seed, String unit, String fieldName) {
-    super(seed, unit, fieldName);
+  SumAccumulator(double seed, String fieldName) {
+    super(seed, fieldName);
   }
 
   @Override

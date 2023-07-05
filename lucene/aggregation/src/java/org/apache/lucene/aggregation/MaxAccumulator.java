@@ -19,8 +19,8 @@ package org.apache.lucene.aggregation;
 /** Accumulates with max. */
 class MaxAccumulator extends Accumulator {
 
-  MaxAccumulator(double seed, String unit, String fieldName) {
-    super(seed, unit, fieldName);
+  MaxAccumulator(double seed, String fieldName) {
+    super(seed, fieldName);
   }
 
   @Override
