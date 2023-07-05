@@ -26,6 +26,7 @@ dependencies {
   moduleImplementation project(':lucene:analysis:common')
   moduleImplementation project(':lucene:queryparser')
   moduleImplementation project(':lucene:expressions')
+  moduleImplementation project(':lucene:aggregation')
 
   moduleTestImplementation project(':lucene:test-framework')
 }

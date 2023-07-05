@@ -29,19 +29,13 @@ public class AccumulatorFactory {
    * TK
    *
    * @param expression TK
-   * @param type TK
+   * @param variableDelimiter TK
    * @return TK
    */
   public static Set<Accumulator> makeAccumulators(Expression expression, String variableDelimiter) {
     Set<Accumulator> accumulators = new HashSet<>();
     for (String variable : expression.variables) {
       Accumulator accumulator = makeAccumulator(variable, variableDelimiter);
-//      if (variable.contains(variableDelimiter)) {
-//        accumulator = makeAccumulator(variable);
-//      } else {
-//        // TODO: Init with value from storedAttribute
-//        accumulator = makeAccumulator(0, variable);
-//      }
       accumulators.add(accumulator);
     }
     return accumulators;
@@ -51,7 +45,8 @@ public class AccumulatorFactory {
    * TK
    *
    * @param token TK
-   * @return org.apache.lucene.aggregation.Accumulator
+   * @param delim TK
+   * @return TK
    */
   public static Accumulator makeAccumulator(String token, String delim) {
     // format: aggType,field
@@ -59,20 +54,9 @@ public class AccumulatorFactory {
     return switch (tokenParts[0]) {
       case "sum" -> new SumAccumulator(0, tokenParts[1]);
       case "max" -> new MaxAccumulator(0, tokenParts[1]);
+      case "min" -> new MinAccumulator(Double.MAX_VALUE, tokenParts[1]);
       case "count" -> new CountAccumulator(0, tokenParts[1]);
       default -> throw new IllegalStateException("Unexpected value: " + tokenParts[0]);
     };
   }
-
-  /**
-   * TK
-   *
-   * @param value TK
-   * @param fieldName TK
-   * @param type TK
-   * @return org.apache.lucene.aggregation.Accumulator
-   */
-//  public static Accumulator makeAccumulator(double value, String fieldName, String type) {
-//    return new NoOpAccumulator(value, type, fieldName);
-//  }
 }

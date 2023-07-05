@@ -14,22 +14,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+package org.apache.lucene.aggregation;
 
+/** TK */
+class MinAccumulator extends Accumulator {
 
-apply plugin: 'java-library'
+  MinAccumulator(double seed, String fieldName) {
+    super(seed, fieldName);
+  }
 
-description = 'Aggregation engine for Lucene'
-
-dependencies {
-    moduleApi project(':lucene:core')
-    moduleImplementation project(':lucene:facet')
-    moduleImplementation project(':lucene:expressions')
-//    moduleImplementation project(':lucene:index')
-//    moduleImplementation project(':lucene:search')
-    moduleImplementation 'com.carrotsearch:hppc'
-
-    moduleTestImplementation project(':lucene:test-framework')
-    moduleTestImplementation project(':lucene:queries')
-    // Required for opening older indexes for backward compatibility tests
-    moduleTestImplementation project(':lucene:backward-codecs')
+  @Override
+  public void evaluate(double value) {
+    runningValue = Math.min(runningValue, value);
+  }
 }

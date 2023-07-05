@@ -14,17 +14,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.lucene.aggregation;
 
-/** Accumulates nothing. */
-class NoOpAccumulator extends Accumulator {
-
-  NoOpAccumulator(double seed, String unit, String fieldName) {
-    super(seed, unit, fieldName);
-  }
-
-  @Override
-  public void evaluate(double value) {
-    runningValue = value;
-  }
-}
+/** Aggregation example code */
+package org.apache.lucene.demo.aggregation;

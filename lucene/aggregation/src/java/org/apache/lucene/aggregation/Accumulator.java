@@ -33,6 +33,10 @@ public abstract class Accumulator {
    */
   public abstract void evaluate(double value);
 
+  /** TK */
+  public void increment() {
+    runningValue++;
+  }
 
   /**
    * TK
@@ -41,5 +45,15 @@ public abstract class Accumulator {
    */
   public double getValue() {
     return runningValue;
+  }
+
+  /**
+   * TK
+   *
+   * @return TK
+   */
+  @Override
+  public String toString() {
+    return getClass().toString().replace("Accumulator", "") + "_" + fieldName + ": " + runningValue;
   }
 }

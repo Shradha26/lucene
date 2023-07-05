@@ -15,21 +15,11 @@
  * limitations under the License.
  */
 
+/** TK. */
+module org.apache.lucene.aggregation {
+  requires org.apache.lucene.facet;
+  requires org.apache.lucene.expressions;
+  requires org.apache.lucene.core;
 
-apply plugin: 'java-library'
-
-description = 'Aggregation engine for Lucene'
-
-dependencies {
-    moduleApi project(':lucene:core')
-    moduleImplementation project(':lucene:facet')
-    moduleImplementation project(':lucene:expressions')
-//    moduleImplementation project(':lucene:index')
-//    moduleImplementation project(':lucene:search')
-    moduleImplementation 'com.carrotsearch:hppc'
-
-    moduleTestImplementation project(':lucene:test-framework')
-    moduleTestImplementation project(':lucene:queries')
-    // Required for opening older indexes for backward compatibility tests
-    moduleTestImplementation project(':lucene:backward-codecs')
+  exports org.apache.lucene.aggregation;
 }
