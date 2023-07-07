@@ -34,9 +34,14 @@ package org.apache.lucene.demo.aggregation;
 
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.List;
+import java.util.Set;
+
 import org.apache.lucene.aggregation.Accumulator;
+import org.apache.lucene.aggregation.AccumulatorFactory;
 import org.apache.lucene.aggregation.Aggregator;
+import org.apache.lucene.aggregation.HierarchicalAggregator;
 import org.apache.lucene.analysis.core.WhitespaceAnalyzer;
 import org.apache.lucene.document.BinaryDocValuesField;
 import org.apache.lucene.document.Document;
@@ -121,33 +126,33 @@ public class HierarchicalAggregationExample {
     searcher.search(new MatchAllDocsQuery(), fc);
 
     // TODO: create layer that can break requested aggregations into this map
-    Map<String, List<Accumulator>> scopesToAccumulators = new HashMap<>();
+    Map<String, Set<Accumulator>> scopesToAccumulators = new HashMap<>();
     scopesToAccumulators.put(
-        "Digital Books", List.of(AccumlatorFactory.makeAccumulator("count_docs")));
+        "Digital Books", Set.of(AccumulatorFactory.makeAccumulator("count_docs", "_")));
     scopesToAccumulators.put(
-        "Physical Books", List.of(AccumlatorFactory.makeAccumulator("count_docs")));
+        "Physical Books", Set.of(AccumulatorFactory.makeAccumulator("count_docs", "_")));
     scopesToAccumulators.put(
         "Digital Books/Author/J.R.R. Tolkien",
-        List.of(
-            AccumlatorFactory.makeAccumulator("count_docs"),
-            AccumlatorFactory.makeAccumulator("max_unitsSold")));
+            Set.of(
+                AccumulatorFactory.makeAccumulator("count_docs", "_"),
+                AccumulatorFactory.makeAccumulator("max_unitsSold", "_")));
     scopesToAccumulators.put(
         "Digital Books/Author/James Joyce",
-        List.of(
-            AccumlatorFactory.makeAccumulator("count_docs"),
-            AccumlatorFactory.makeAccumulator("max_unitsSold")));
+            Set.of(
+                AccumulatorFactory.makeAccumulator("count_docs", "_"),
+                AccumulatorFactory.makeAccumulator("max_unitsSold", "_")));
     scopesToAccumulators.put(
-        "Physical Books/Language/English", List.of(AccumlatorFactory.makeAccumulator("min_price")));
+        "Physical Books/Language/English", Set.of(AccumulatorFactory.makeAccumulator("min_price", "_")));
     scopesToAccumulators.put(
-        "Physical Books/Language/French", List.of(AccumlatorFactory.makeAccumulator("min_price")));
+        "Physical Books/Language/French", Set.of(AccumulatorFactory.makeAccumulator("min_price", "_")));
 
-    Aggregator aggregator = HierarchicalAggregator("genre", "|", "/");
+    Aggregator aggregator = new HierarchicalAggregator("genre", "|", "/");
     aggregator.aggregate(fc, scopesToAccumulators);
 
     // TODO: create layer that can combine aggregation results
     for (String scope : scopesToAccumulators.keySet()) {
       System.out.println(scope);
-      List<Accumulator> accumulators = scopesToAccumulators.get(scope);
+      Set<Accumulator> accumulators = scopesToAccumulators.get(scope);
       for (Accumulator accumulator : accumulators) {
         System.out.println("\t" + accumulator.getValue());
       }
